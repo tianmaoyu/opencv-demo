@@ -60,19 +60,31 @@ print("总误差: ", total_error / len(objpoints))
 # 保存标定参数
 np.savez('calibration_data.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 
-# 使用标定结果进行去畸变
-img = cv2.imread('calibration_images/test_image.jpg')
-h, w = img.shape[:2]
-newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+for image_name in images:
 
-# 去畸变
-dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
+    img = cv2.imread(image_name)
+    h,w= img.shape[:2]
+    newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h),centerPrincipalPoint=True)
+    # 去畸变
+    dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
+    cv2.imwrite(f'./calibration_images/{os.path.basename(image_name)}', dst)
+    print(f"去除畸变：{os.path.basename(image_name)}")
 
-# 裁剪图像
-x, y, w, h = roi
-dst = dst[y:y + h, x:x + w]
-cv2.imwrite('calibration_images/calibresult.png', dst)
 
-cv2.imshow('calibresult', dst)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# # 使用标定结果进行去畸变
+# img = cv2.imread('calibration_images/test_image.jpg')
+# h, w = img.shape[:2]
+# newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+#
+# # 去畸变
+# dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
+#
+# # 裁剪图像
+# x, y, w, h = roi
+# dst = dst[y:y + h, x:x + w]
+# cv2.imwrite('calibration_images/calibresult.png', dst)
+
+# cv2.imshow('calibresult', dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+exit(1)
