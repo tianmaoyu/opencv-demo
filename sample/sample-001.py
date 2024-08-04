@@ -45,14 +45,20 @@ plt.title('Original Image')
 plt.imshow(image)
 plt.axis('off')
 
+
+
 plt.subplot(1, 3, 2)
 plt.title('Downsampled Image')
 plt.imshow(downsampled_image)
 plt.axis('off')
+image_down = Image.fromarray(downsampled_image)
+image_down.save('downsampled_image_output.jpg')
 
 plt.subplot(1, 3, 3)
 plt.title('Upsampled Image')
 plt.imshow(upsampled_image)
 plt.axis('off')
+image_up = Image.fromarray(upsampled_image)
+image_up.save('upsampled_image_output.jpg')
 
 plt.show()
