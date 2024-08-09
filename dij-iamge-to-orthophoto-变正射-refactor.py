@@ -122,11 +122,12 @@ def pixelcoord_to_geocoord(image_file: str, pixel: float, source_pixel_list:np.n
     yaw = float(xmp['Xmp.drone-dji.GimbalYawDegree'])
     pitch = float(xmp['Xmp.drone-dji.GimbalPitchDegree'])
     roll = float(xmp['Xmp.drone-dji.GimbalRollDegree'])
-
+    pixel_point_in_camera_list=[]
     source_geocoord_list=[]
     for pixel_x, pixel_y in source_pixel_list:
         #  云台坐标系下的坐标
         pixel_point_in_camera = image_to_camera(width, hegth, pixel_x, pixel_y, pixel, focal_length)
+        pixel_point_in_camera_list.append(pixel_point_in_camera.tolist())
         # 云台坐标进行云台旋转，得到旋转后的坐标
         camera_matrix, _ = rotate_matrix(yaw_degree=yaw, pitch_degree=pitch, roll_degree=roll)
         pixel_point_rotated_in_camera = camera_matrix * Matrix(pixel_point_in_camera)
@@ -141,6 +142,7 @@ def pixelcoord_to_geocoord(image_file: str, pixel: float, source_pixel_list:np.n
 
         source_geocoord_list.append([geo[0], geo[1]])
 
+    print("相机传感器坐标",pixel_point_in_camera_list)
     return np.array(source_geocoord_list)
     # longitude, latitude = web_to_wgs84(object_point_in_geo[0], object_point_in_geo[1])
     # return longitude, latitude
