@@ -45,7 +45,7 @@ unique_labels, counts = np.unique(labels, return_counts=True)
 sorted_indices = np.argsort(-counts)  # 从大到小排序
 
 # 只处理最大的三个类别
-for i in range(min(1, len(sorted_indices))):
+for i in range(min(3, len(sorted_indices))):
     label = unique_labels[sorted_indices[i]]
 
     # 创建一个掩码

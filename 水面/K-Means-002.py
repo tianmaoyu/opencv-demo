@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # 加载图像
-image_path = 'src/W.JPG'
+image_path = 'src/T1.JPG'
 image = cv2.imread(image_path)
 new_width = 400
 new_height = 300
@@ -19,7 +19,7 @@ image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 flat_image = np.reshape(image, [-1, 3])
 
 # 使用 K-Means 聚类分割图像
-num_clusters = 2
+num_clusters = 3
 kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(flat_image)
 labels = kmeans.labels_
 
@@ -52,7 +52,7 @@ for i in range(3):
 
         # 如果找到了面积最大的轮廓，进行多边形拟合
 if largest_contour is not None:
-    epsilon = 0.01 * cv2.arcLength(largest_contour, True)
+    epsilon =0.8* 0.01 * cv2.arcLength(largest_contour, True)
     approx = cv2.approxPolyDP(largest_contour, epsilon, True)
     cv2.drawContours(contour_image, [approx], -1, (0, 0, 255), 2)  # 红色边框
 
