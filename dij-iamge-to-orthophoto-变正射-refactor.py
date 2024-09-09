@@ -204,7 +204,7 @@ def geocoord_to_pixelcoord(image_file: str, pixel: float, source_geocoord_list: 
 
 # 像素大小
 pixel = 1.6 / 1000_000
-image_file = "pixel_to_gen_img/3.jpeg"
+image_file = "./pixel_to_gen_img/3.jpeg"
 # image_file = "D:\\test-image\\3.jpeg"
 # 原始图片4个角-像素坐标点
 source_pixel_list=np.array([

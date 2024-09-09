@@ -32,7 +32,7 @@ gray_image = cv2.cvtColor(segmented_image, cv2.COLOR_RGB2GRAY)
 
 # 找到最大的三个类别并进行多边形拟合
 contour_image = image.copy()
-for i in range(3):
+for i in range(1):
     # 创建一个掩码
     mask = np.zeros_like(gray_image)
     mask[labels.reshape(image.shape[:2]) == i] = 255
