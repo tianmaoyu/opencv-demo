@@ -3,8 +3,8 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-t_iamge_path = "./imgs2/T.JPG"
-w_image_path = "./imgs2/W.JPG"
+t_iamge_path = "./imgs2/DJI_20240822122651_0027_T.JPG"
+w_image_path = "./imgs2/DJI_20240822122652_0027_W.JPG"
 
 # 第一张图片的参数
 width_A = 4000
@@ -69,7 +69,7 @@ t_image = cv2.imread(t_iamge_path)
 #     cv2.circle(image_A, tuple(corner.astype(int)), 10, (0, 0, 255), -1)  # 用红点标记角点
 cv2.polylines(w_image, [corners_A], isClosed=True, color=(0,0, 255), thickness=20)
 # 使用 plt 显示图像
-plt.figure(figsize=(7, 2.5))
+plt.figure(figsize=(28, 10))
 plt.subplot(1,2,2)
 plt.imshow(cv2.cvtColor(w_image, cv2.COLOR_BGR2RGB))
 plt.title('W')
