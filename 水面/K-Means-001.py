@@ -48,7 +48,7 @@ for i in range(1):
         cv2.drawContours(contour_image, [approx], -1, (0, 0, 255), 2)  # 红色边框
 
 # 显示结果
-plt.figure(figsize=(15, 10))
+plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
 plt.title('Original Image')
 plt.imshow(image)
