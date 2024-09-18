@@ -55,9 +55,20 @@ segmented_image = np.reshape(segmented_image, image.shape).astype(np.uint8)
 gray_image = cv2.cvtColor(segmented_image, cv2.COLOR_RGB2GRAY)
 color_list = [(255, 0, 0), (0, 255, 0), (0, 0, 255),(126, 0, 255), (126, 255, 0), (255, 126, 0),(126, 0, 126), (126, 126, 0), (126, 126, 0)]
 
+# 每个类别的均值
+data_fit=data.reshape(-1,)
+for cluster_idx in range(num_clusters):
+    # 获取属于当前类别的所有像素
+    cluster_pixels = data_fit[labels == cluster_idx]
+    # 计算这些像素的平均值
+    mean_value = np.mean(cluster_pixels, axis=0)
+    print(f"第{cluster_idx}均值： {mean_value}")
+
+
+
 # 找到最大的三个类别并进行多边形拟合
 contour_image = image.copy()
-for i in range(1):
+for i in range(3):
     # 创建一个掩码
     mask = np.zeros_like(gray_image)
     mask[labels.reshape(image.shape[:2]) == i] = 255
