@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # 加载图像
-image_path = 'src/W.JPG'
+image_path = 'water/unetplus-5-4.jpg'
 image = cv2.imread(image_path)
 new_width = 400
 new_height = 300
@@ -19,7 +19,7 @@ image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 flat_image = np.reshape(image, [-1, 3])
 
 # 使用 K-Means 聚类分割图像
-num_clusters = 3
+num_clusters = 2
 kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(flat_image)
 labels = kmeans.labels_
 

@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-image_path = 'src/W2.JPG'
+image_path = 'water/unet-2-7.jpg'
 
 # 读取图像
 image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)  # 直接读取为灰度图像
 
 # Binarize the image
-ret, binary_image = cv2.threshold(image, 127, 255, 0)
+ret, binary_image = cv2.threshold(image, 25, 255, 0)
 
 # Find contours in the binary image
 contours, hierarchy = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
