@@ -20,7 +20,7 @@ with open('raw/measure2.raw', 'rb') as f:
 # 解析 .raw 数据
 data = np.frombuffer(raw_data, dtype=f'{byte_order}u{bit_depth//8}')
 data = data.reshape((height, width))
-data=data/10
+# data=data/10
 
 max_value=np.max(data)
 min_value=np.min(data)
@@ -31,8 +31,9 @@ print(f"最小值: {min_value}")
 print(f"平均值: {average_value}")
 print(f"平均值: {average_value2}")
 # 显示图像
-
-image = Image.fromarray(data.astype(np.uint8))
+mapped_arr = 255 * (data - min_value) / (max_value - min_value)
+mapped_arr = np.uint8(mapped_arr)
+image = Image.fromarray(mapped_arr)
 image.save('measure2.jpg')
 plt.imshow(data, cmap='gray')
 plt.axis("off")
