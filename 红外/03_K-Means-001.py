@@ -55,7 +55,7 @@ segmented_image = np.reshape(segmented_image, image.shape).astype(np.uint8)
 gray_image = cv2.cvtColor(segmented_image, cv2.COLOR_RGB2GRAY)
 color_list = [(255, 0, 0), (0, 255, 0), (0, 0, 255),(126, 0, 255), (126, 255, 0), (255, 126, 0),(126, 0, 126), (126, 126, 0), (126, 126, 0)]
 
-# 每个类别的均值
+# 每个类别的均值 todo
 data_fit=data.reshape(-1,)
 for cluster_idx in range(num_clusters):
     # 获取属于当前类别的所有像素
