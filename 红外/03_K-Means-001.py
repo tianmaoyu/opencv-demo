@@ -21,8 +21,8 @@ def read_temperature(raw_path: str, width=640, height=512) -> np.ndarray:
     return data
 
 
-# raw_path = "raw/DJI_0005_R2.raw"
-raw_path = "raw/0002_T.raw"
+raw_path = "raw/DJI_0005_R2.raw"
+# raw_path = "raw/0002_T.raw"
 # 读取图像
 
 data = read_temperature(raw_path)

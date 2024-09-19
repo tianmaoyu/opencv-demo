@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 
-image_path = 'water/test.jpg'
+image_path = 'water/unet-5-7.jpg'
 # 读取图像
 image = cv2.imread(image_path,cv2.IMREAD_GRAYSCALE)
 

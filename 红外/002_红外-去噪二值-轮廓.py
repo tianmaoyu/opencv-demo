@@ -21,7 +21,7 @@ def read_temperature(raw_path: str, width=640, height=512) -> np.ndarray:
     return data
 
 
-raw_path = "raw/0002_T.raw"
+raw_path = "raw/DJI_0005_R2.raw"
 # 读取图像
 
 data = read_temperature(raw_path)
@@ -35,25 +35,42 @@ print(f"平均值: {average_value}")
 
 image = 255 * (data - min_value) / (max_value - min_value)
 image = np.uint8(image)
-image= 255-image
+image = 255 - image
 # 温度差 0.5 度差
-temperature_value= 1
-threshold_value = 255 * (average_value - min_value) / (max_value - min_value)
+temperature_value = 5
+threshold_value = 255 - (255 * (average_value - temperature_value - min_value) / (max_value - min_value))
+
+
 
 # 使用高斯模糊平滑图像
 gaussian = cv2.GaussianBlur(image, (5, 5), 0)
 ret, threshold = cv2.threshold(image, threshold_value, 255, 0)
 
-color_list = [(0, 0, 255), (0, 255, 0), (255, 0, 0),(126, 0, 255), (126, 255, 0), (255, 126, 0),(126, 0, 126), (126, 126, 0), (126, 126, 0)]
+color_list = [(0, 0, 255), (0, 255, 0), (255, 0, 0), (126, 0, 255), (126, 255, 0), (255, 126, 0), (126, 0, 126),
+              (126, 126, 0), (126, 126, 0)]
 
 # 查找轮廓
-contours, _ = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contours, _ = cv2.findContours(threshold, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
 # 筛选出最大的三个轮廓
 if len(contours) >= 5:
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
 else:
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
+
+# 获取轮廊中的像素
+for i, contour in enumerate(contours):
+    mask = np.zeros_like(image, dtype=np.uint8)
+    cv2.drawContours(mask, [contour], -1, 255, 1)
+    contour_pixels = image[mask == 255]
+    if len(contour_pixels) > 0:
+        mean_val = np.mean(contour_pixels)  # 平均值
+        min_val = np.min(contour_pixels)  # 最小值
+        max_val = np.max(contour_pixels)  # 最大值
+        print(f"Contour {i}:")
+        print(f"  Mean: {mean_val}")
+        print(f"  Min: {min_val}")
+        print(f"  Max: {max_val}")
 
 # 创建一个新的图像用于绘制轮廓
 contour_image = threshold.copy()
