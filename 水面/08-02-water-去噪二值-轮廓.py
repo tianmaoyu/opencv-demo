@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 
-image_path = 'water/unet-5-7.jpg'
+image_path = 'water/001-20.jpg'
 # 读取图像
 image = cv2.imread(image_path,cv2.IMREAD_GRAYSCALE)
 
 # 使用高斯模糊平滑图像
 gaussian = cv2.GaussianBlur(image, (5, 5), 0)
-ret, threshold = cv2.threshold(gaussian, 30, 255, 0)
+ret, threshold = cv2.threshold(gaussian, 100, 255, 0)
 
 color_list=[(0, 0, 255),(0, 255, 0),(255, 0, 0)]
 

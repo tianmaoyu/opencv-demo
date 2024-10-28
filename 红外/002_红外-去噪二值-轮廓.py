@@ -21,7 +21,7 @@ def read_temperature(raw_path: str, width=640, height=512) -> np.ndarray:
     return data
 
 
-raw_path = "raw/DJI_0005_R2.raw"
+raw_path = "raw/process.raw"
 # 读取图像
 
 data = read_temperature(raw_path)
@@ -37,7 +37,7 @@ image = 255 * (data - min_value) / (max_value - min_value)
 image = np.uint8(image)
 image = 255 - image
 # 温度差 0.5 度差
-temperature_value = 5
+temperature_value = 18
 threshold_value = 255 - (255 * (average_value - temperature_value - min_value) / (max_value - min_value))
 
 
